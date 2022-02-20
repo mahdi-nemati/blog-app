@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import BlogList from "./components/BlogList";
+import BlogPage from "./Pages/BlogPage";
 import HomePage from "./Pages/HomePage";
 
 function App() {
@@ -8,6 +8,7 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/blog/:id" element={<BlogPage />} />
       </Routes>
     </div>
   );

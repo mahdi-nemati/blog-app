@@ -18,11 +18,25 @@ export const getBlog = createAsyncThunk(
     }
   }
 );
+export const getOneBlog = createAsyncThunk(
+  "contact/getOneBlog",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(
+        `https://api.freerealapi.com/blogs/${payload}`
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue([], error.message);
+    }
+  }
+);
 
 const BlogSlice = createSlice({
   name: "Blog",
   initialState,
   extraReducers: {
+    // get all blog
     [getBlog.fulfilled]: (state, action) => {
       return { ...state, error: null, loading: false, blog: action.payload };
     },
@@ -30,6 +44,16 @@ const BlogSlice = createSlice({
       return { ...state, error: null, loading: true, blog: [] };
     },
     [getBlog.rejected]: (state, action) => {
+      return { ...state, error: action.error, loading: false, blog: [] };
+    },
+    // get one blog
+    [getOneBlog.fulfilled]: (state, action) => {
+      return { ...state, error: null, loading: false, blog: action.payload };
+    },
+    [getOneBlog.pending]: (state, action) => {
+      return { ...state, error: null, loading: true, blog: [] };
+    },
+    [getOneBlog.rejected]: (state, action) => {
       return { ...state, error: action.error, loading: false, blog: [] };
     },
   },

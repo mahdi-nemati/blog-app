@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { getBlog } from "../Features/BlogSlice";
 
 const BlogList = () => {
@@ -16,7 +17,9 @@ const BlogList = () => {
         blog.blogs.map((b) => {
           return (
             <div key={b._id}>
-              <p>{b.title}</p>
+              <Link to={`blog/${b._id}`}>
+                <p>{b.title}</p>
+              </Link>
             </div>
           );
         })}
